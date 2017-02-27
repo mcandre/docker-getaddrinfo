@@ -9,6 +9,7 @@ void usage(char* program) {
   printf("Usage: %s <address>\n\n", program);
 
   printf("-s <service>\tSpecify a port number or well known network service name\n");
+  printf("-f <family>\tSpecify a network family (any, v4, v6)\n");
   printf("-h\t\tShow usage information\n");
   exit(1);
 }
@@ -17,11 +18,15 @@ int main(int argc, char** argv) {
   char c;
   char *address = NULL;
   char *service = NULL;
+  char *family = NULL;
 
-  while ((c = getopt(argc, argv, "s:h")) != -1) {
+  while ((c = getopt(argc, argv, "s:f:h")) != -1) {
     switch(c) {
       case 's':
         service = optarg;
+        break;
+      case 'f':
+        family = optarg;
         break;
       default:
         usage(argv[0]);
@@ -34,9 +39,20 @@ int main(int argc, char** argv) {
 
   address = argv[optind];
 
+  int ai_family = AF_UNSPEC;
+
+  if (family != NULL && strcmp(family, "v4") == 0) {
+    ai_family = AF_INET;
+  } else if (family != NULL && strcmp(family, "v6") == 0) {
+    ai_family = AF_INET6;
+  }
+
+  struct addrinfo hints = { .ai_family = ai_family };
+
   struct addrinfo* results;
 
-  int err = getaddrinfo(address, service, NULL, &results);
+
+  int err = getaddrinfo(address, service, &hints, &results);
 
   if (err != 0) {
     fprintf(stderr, "Error resolving address %s: %s\n", address, gai_strerror(err));

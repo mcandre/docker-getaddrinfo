@@ -19,6 +19,7 @@ $ docker run mcandre/docker-getaddrinfo -h
 Usage: ./bin/getaddrinfo <address>
 
 -s <service>	Specify a port number or well known network service name
+-f <family>	Specify a network family (any, v4, v6)
 -h		Show usage information
 ```
 
