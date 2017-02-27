@@ -14,6 +14,12 @@ $ docker run mcandre/docker-getaddrinfo localhost
 ::1
 127.0.0.1
 127.0.0.1
+
+$ docker run mcandre/docker-getaddrinfo -h
+Usage: ./bin/getaddrinfo <address>
+
+-s <service>	Specify a port number or well known network service name
+-h		Show usage information
 ```
 
 # REQUIREMENTS

@@ -3,22 +3,40 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 void usage(char* program) {
-  printf("Usage: %s <address>\n", program);
+  printf("Usage: %s <address>\n\n", program);
+
+  printf("-s <service>\tSpecify a port number or well known network service name\n");
+  printf("-h\t\tShow usage information\n");
   exit(1);
 }
 
 int main(int argc, char** argv) {
-  if (argc != 2) {
+  char c;
+  char *address = NULL;
+  char *service = NULL;
+
+  while ((c = getopt(argc, argv, "s:h")) != -1) {
+    switch(c) {
+      case 's':
+        service = optarg;
+        break;
+      default:
+        usage(argv[0]);
+    }
+  }
+
+  if (optind >= argc) {
     usage(argv[0]);
   }
 
-  char* address = argv[1];
+  address = argv[optind];
 
   struct addrinfo* results;
 
-  int err = getaddrinfo(address, NULL, NULL, &results);
+  int err = getaddrinfo(address, service, NULL, &results);
 
   if (err != 0) {
     fprintf(stderr, "Error resolving address %s: %s\n", address, gai_strerror(err));
