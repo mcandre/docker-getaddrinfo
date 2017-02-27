@@ -101,7 +101,6 @@ int main(int argc, char** argv) {
 
   struct addrinfo* results;
 
-
   int err = getaddrinfo(address, service, &hints, &results);
 
   if (err != 0) {
