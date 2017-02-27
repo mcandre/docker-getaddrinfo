@@ -10,6 +10,7 @@ void usage(char* program) {
 
   printf("-s <service>\tSpecify a port number or well known network service name\n");
   printf("-f <family>\tSpecify a network family (any, v4, v6)\n");
+  printf("-t <socket>\tSpecify a socket type (any, tcp, udp)\n");
   printf("-h\t\tShow usage information\n");
   exit(1);
 }
@@ -19,14 +20,18 @@ int main(int argc, char** argv) {
   char *address = NULL;
   char *service = NULL;
   char *family = NULL;
+  char *socktype = NULL;
 
-  while ((c = getopt(argc, argv, "s:f:h")) != -1) {
+  while ((c = getopt(argc, argv, "s:f:t:h")) != -1) {
     switch(c) {
       case 's':
         service = optarg;
         break;
       case 'f':
         family = optarg;
+        break;
+      case 't':
+        socktype = optarg;
         break;
       default:
         usage(argv[0]);
@@ -41,13 +46,28 @@ int main(int argc, char** argv) {
 
   int ai_family = AF_UNSPEC;
 
-  if (family != NULL && strcmp(family, "v4") == 0) {
-    ai_family = AF_INET;
-  } else if (family != NULL && strcmp(family, "v6") == 0) {
-    ai_family = AF_INET6;
+  if (family != NULL) {
+    if (strcmp(family, "v4") == 0) {
+      ai_family = AF_INET;
+    } else if (strcmp(family, "v6") == 0) {
+      ai_family = AF_INET6;
+    }
   }
 
-  struct addrinfo hints = { .ai_family = ai_family };
+  int ai_socktype = 0;
+
+  if (socktype != NULL) {
+    if (strcmp(socktype, "tcp") == 0) {
+      ai_socktype = SOCK_STREAM;
+    } else if (strcmp(socktype, "udp") == 0) {
+      ai_socktype = SOCK_DGRAM;
+    }
+  }
+
+  struct addrinfo hints = {
+    .ai_family = ai_family,
+    .ai_socktype = ai_socktype
+  };
 
   struct addrinfo* results;
 
