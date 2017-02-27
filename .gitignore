@@ -1,8 +1,5 @@
 bin/
-CTestTestfile.cmake
-Testing/
-
-# Created by https://www.gitignore.io/api/c,cmake
+# Created by https://www.gitignore.io/api/c
 
 ### C ###
 # Prerequisites
@@ -57,15 +54,4 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-
-### CMake ###
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-
-# End of https://www.gitignore.io/api/c,cmake
+# End of https://www.gitignore.io/api/c
