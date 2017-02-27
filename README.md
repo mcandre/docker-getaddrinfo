@@ -37,6 +37,7 @@ Usage: /bin/getaddrinfo <address>
 -f <family>	Specify a network family (any, v4, v6)
 -t <socket>	Specify a socket type (any, tcp, udp)
 -p <protocol>	Specify a protocol (any, tcp, udp, icmp)
+-g <value>	Specify hints.ai_flags as an integer
 -h		Show usage information
 ```
 

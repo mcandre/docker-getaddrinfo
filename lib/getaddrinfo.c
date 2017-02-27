@@ -12,6 +12,7 @@ void usage(char* program) {
   printf("-f <family>\tSpecify a network family (any, v4, v6)\n");
   printf("-t <socket>\tSpecify a socket type (any, tcp, udp)\n");
   printf("-p <protocol>\tSpecify a protocol (any, tcp, udp, icmp)\n");
+  printf("-g <value>\tSpecify hints.ai_flags as an integer\n");
   printf("-h\t\tShow usage information\n");
   exit(1);
 }
@@ -23,8 +24,9 @@ int main(int argc, char** argv) {
   char *family = NULL;
   char *socktype = NULL;
   char *protocol = NULL;
+  char *flags = NULL;
 
-  while ((c = getopt(argc, argv, "s:f:t:p:h")) != -1) {
+  while ((c = getopt(argc, argv, "s:f:t:p:g:h")) != -1) {
     switch(c) {
       case 's':
         service = optarg;
@@ -37,6 +39,9 @@ int main(int argc, char** argv) {
         break;
       case 'p':
         protocol = optarg;
+        break;
+      case 'g':
+        flags = optarg;
         break;
       default:
         usage(argv[0]);
@@ -81,10 +86,17 @@ int main(int argc, char** argv) {
     }
   }
 
+  int ai_flags = AI_V4MAPPED | AI_ADDRCONFIG;
+
+  if (flags != NULL) {
+    ai_flags = atoi(flags);
+  }
+
   struct addrinfo hints = {
     .ai_family = ai_family,
     .ai_socktype = ai_socktype,
-    .ai_protocol = ai_protocol
+    .ai_protocol = ai_protocol,
+    .ai_flags = ai_flags
   };
 
   struct addrinfo* results;
