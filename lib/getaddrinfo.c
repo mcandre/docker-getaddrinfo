@@ -11,6 +11,7 @@ void usage(char* program) {
   printf("-s <service>\tSpecify a port number or well known network service name\n");
   printf("-f <family>\tSpecify a network family (any, v4, v6)\n");
   printf("-t <socket>\tSpecify a socket type (any, tcp, udp)\n");
+  printf("-p <protocol>\tSpecify a protocol (any, tcp, udp, icmp)\n");
   printf("-h\t\tShow usage information\n");
   exit(1);
 }
@@ -21,8 +22,9 @@ int main(int argc, char** argv) {
   char *service = NULL;
   char *family = NULL;
   char *socktype = NULL;
+  char *protocol = NULL;
 
-  while ((c = getopt(argc, argv, "s:f:t:h")) != -1) {
+  while ((c = getopt(argc, argv, "s:f:t:p:h")) != -1) {
     switch(c) {
       case 's':
         service = optarg;
@@ -32,6 +34,9 @@ int main(int argc, char** argv) {
         break;
       case 't':
         socktype = optarg;
+        break;
+      case 'p':
+        protocol = optarg;
         break;
       default:
         usage(argv[0]);
@@ -64,9 +69,22 @@ int main(int argc, char** argv) {
     }
   }
 
+  int ai_protocol = 0;
+
+  if (protocol != NULL) {
+    if (strcmp(protocol, "tcp") == 0) {
+      ai_protocol = IPPROTO_TCP;
+    } else if (strcmp(protocol, "udp") == 0) {
+      ai_protocol = IPPROTO_UDP;
+    } else if (strcmp(protocol, "icmp") == 0) {
+      ai_protocol = IPPROTO_ICMP;
+    }
+  }
+
   struct addrinfo hints = {
     .ai_family = ai_family,
-    .ai_socktype = ai_socktype
+    .ai_socktype = ai_socktype,
+    .ai_protocol = ai_protocol
   };
 
   struct addrinfo* results;
