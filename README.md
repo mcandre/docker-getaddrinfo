@@ -15,6 +15,13 @@ $ docker run mcandre/docker-getaddrinfo localhost
 127.0.0.1
 127.0.0.1
 
+$ docker run mcandre/docker-getaddrinfo -f v4 square.com
+74.122.190.80
+74.122.190.80
+
+$ docker run mcandre/docker-getaddrinfo -f v6 square.com
+Error resolving address square.com: Name does not resolve
+
 $ docker run mcandre/docker-getaddrinfo -h
 Usage: ./bin/getaddrinfo <address>
 
