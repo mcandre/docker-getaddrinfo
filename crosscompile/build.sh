@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 
 build_bot_dir="$(dirname $0)"
 

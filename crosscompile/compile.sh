@@ -1,4 +1,5 @@
 #!/bin/sh
+set -euo pipefail
 
 top_level_src="$(sh -c "cd $(dirname $0)/.. && pwd")"
 
