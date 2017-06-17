@@ -50,6 +50,8 @@ Usage: /bin/getaddrinfo <address>
 ## Optional
 
 * [make](https://www.gnu.org/software/make/)
+* [editorconfig-cli](https://github.com/amyboyd/editorconfig-cli) (e.g. `go get github.com/amyboyd/editorconfig-cli`)
+* [flcl](https://github.com/mcandre/flcl) (e.g. `go get github.com/mcandre/flcl/...`)
 
 # COMPILE FOR HOST OS TARGET
 
@@ -66,7 +68,7 @@ $ crosscompile/compile.sh
 $ file bin/getaddrinfo
 bin/getaddrinfo: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped
 
-$ ./build.sh
+$ bash build.sh
 ```
 
 # PUBLISH

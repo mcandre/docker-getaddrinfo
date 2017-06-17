@@ -1,0 +1,21 @@
+{
+  "name": "docker-getaddrinfo",
+  "description": "a Docker container for getaddrinfo()",
+  "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mcandre/docker-getaddrinfo.git"
+  },
+  "author": "Andrew Pennebaker <andrew.pennebaker@gmail.com>",
+  "directories": {
+    "lib": "."
+  },
+  "engines": {
+    "node": ">=0.11.6"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {
+    "dockerlint": "0.1.4"
+  }
+}
