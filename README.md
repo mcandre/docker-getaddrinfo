@@ -62,13 +62,13 @@ $ make clean && make
 # CROSS-COMPILE FOR LINUX TARGET
 
 ```console
-$ crosscompile/build.sh
-$ crosscompile/compile.sh
+$ bash crosscompile/build-docker
+$ bash crosscompile/compile-c
 
 $ file bin/getaddrinfo
 bin/getaddrinfo: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, not stripped
 
-$ bash build.sh
+$ bash build-docker
 ```
 
 # PUBLISH
